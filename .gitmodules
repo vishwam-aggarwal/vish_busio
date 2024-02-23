@@ -1,0 +1,3 @@
+[submodule "vish_i2cdev"]
+	path = vish_i2cdev
+	url = https://github.com/vishwam-aggarwal/vish_i2cdev.git
