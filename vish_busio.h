@@ -3,10 +3,10 @@
 
 #include "vish_i2cdev.h"
 
-enum ByteOrder {
-  LSBFIRST = false, ///< Active high open-collector (Default)
-  MSBFIRST = true, ///< Active low open-collector
-};
+typedef enum ByteOrder:bool {
+  LSBFIRST = false, /// (Default)
+  MSBFIRST = true, ///
+}ByteOrder;
 
 /*!
  * @brief The class which defines a device register (a location to read/write
@@ -14,11 +14,12 @@ enum ByteOrder {
  */
 class vish_BusIO_Register {
 public:
-  vish_BusIO_Register(vish_i2cdev* INA260_I2C, uint32_t reg, uint8_t width = 2, bool byteorder = LSBFIRST,
-                          uint8_t reg_len = 1, bool reg_byteorder = LSBFIRST);
+  vish_BusIO_Register();
 
+  void begin(vish_i2cdev* INA260_I2C, uint32_t reg, uint8_t width = 1, ByteOrder byteorder = LSBFIRST,
+              uint8_t reg_len = 1, ByteOrder reg_byteorder = LSBFIRST);
   uint32_t read(void);
-  bool write(uint32_t value, uint8_t numbytes = 0);
+  bool write(uint32_t value, uint8_t numbytes = 1);
 
   //uint8_t width(void);
 
@@ -28,9 +29,9 @@ public:
 
 private:
     vish_i2cdev* _INA260_I2C;
-    uint8_t _reg[4];
+    uint32_t _reg;
     uint8_t _width, _reg_len;
-    bool _byteorder, _reg_byteorder;
+    ByteOrder _byteorder, _reg_byteorder;
 };
 
 /*!
