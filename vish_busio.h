@@ -14,18 +14,18 @@ typedef enum ByteOrder:bool {
  */
 class vish_BusIO_Register {
 public:
-  vish_BusIO_Register();
+  vish_BusIO_Register(
+    vish_i2cdev* INA260_I2C,
+    uint32_t reg,
+    uint8_t width = 1,
+    ByteOrder byteorder = LSBFIRST,
+    uint8_t reg_len = 1,
+    ByteOrder reg_byteorder = LSBFIRST);
 
-  void begin(vish_i2cdev* INA260_I2C, uint32_t reg, uint8_t width = 1, ByteOrder byteorder = LSBFIRST,
-              uint8_t reg_len = 1, ByteOrder reg_byteorder = LSBFIRST);
   uint32_t read(void);
   bool write(uint32_t value, uint8_t numbytes = 1);
 
-  //uint8_t width(void);
-
-  void setWidth(uint8_t width);
-  void setAddress(uint16_t address);
-  void setAddressWidth(uint16_t address_width);
+  uint8_t width(void);
 
 private:
     vish_i2cdev* _INA260_I2C;
@@ -46,7 +46,7 @@ public:
   uint32_t read(void);
 
 private:
-  vish_BusIO_Register* _register;
+  vish_BusIO_Register* _reg;
   uint8_t _bits, _shift;
 };
 
