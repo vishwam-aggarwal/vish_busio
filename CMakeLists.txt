@@ -6,7 +6,6 @@ add_library( vish_busio
 add_subdirectory(vish_i2cdev)
 
 target_link_libraries(vish_busio
-    pico_stdlib
     vish_i2cdev
 )
 
